@@ -40,12 +40,12 @@ class MovieController extends Controller
 
         $movies = new Movie();
         $movies->judul = $request->judul;
-        $movies->deskrisi = $request->deskrisi;
+        $movies->deskripsi = $request->deskripsi;
         $movies->durasi = $request->durasi;
         $movies->rating = $request->rating;
         $movies->tanggal_rilis = $request->tanggal_rilis;
         $movies->kategori = $request->kategori;
-        // $movies->gambar =
+        $movies->gambar = $fileName;
         $movies->save();
 
         return response()->json([
