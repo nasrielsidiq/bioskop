@@ -34,4 +34,5 @@ Route::middleware('jwtauth')->group(function () {
     Route::post('/jadwal/get', [JadwalController::class, 'get']);
     Route::post('/pemesanan/add', [PemesananController::class, 'create']);
     Route::post('/pemesanan/get', [PemesananController::class, 'get']);
+    Route::get('/movie/get/{id}', [MovieController::class,'getById']);
 });

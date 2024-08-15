@@ -17,6 +17,7 @@ class MovieController extends Controller
             'rating' => 'required',
             'tanggal_rilis' => ['required','date'],
             'kategori' => 'required',
+            'gambar' => 'required'
         ]);
         $user = Auth::guard('api')->user();
         if (!$user->is_admin) {
@@ -30,6 +31,13 @@ class MovieController extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
+        $gambar = $request->file('gambar');
+        if ($gambar) {
+            $fileName = $request->judul."_thumbnail.".$gambar->getClientOriginalExtension();
+            $gambar->storeAs('thumbnail',$fileName);
+        }
+
+
         $movies = new Movie();
         $movies->judul = $request->judul;
         $movies->deskrisi = $request->deskrisi;
@@ -37,6 +45,7 @@ class MovieController extends Controller
         $movies->rating = $request->rating;
         $movies->tanggal_rilis = $request->tanggal_rilis;
         $movies->kategori = $request->kategori;
+        // $movies->gambar =
         $movies->save();
 
         return response()->json([
@@ -51,5 +60,11 @@ class MovieController extends Controller
             'movies' => $movies
         ], 200);
     }
-
+    public function getById($id){
+        $movies = Movie::find($id);
+        return response()->json([
+            'messagge' => 'Get movies success',
+            'movies' => $movies
+        ], 200);
+    }
 }
