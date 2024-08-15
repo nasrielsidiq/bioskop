@@ -40,7 +40,7 @@ class PemesananController extends Controller
 
         return response()->json([
             'message' => 'Pesanan success',
-            'pesanan' =>    $pesanan->with('kursi')
+            'pesanan' =>  $pesanan->with('kursi')->get()
         ], 200);
     }
     public function get(){

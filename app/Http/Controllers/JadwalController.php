@@ -16,7 +16,7 @@ class JadwalController extends Controller
             'judul_movie' => 'required',
             'nama_studio' => 'required',
             'tanggal_tayang' => ['required','date'],
-            'jam_tayang' =>  ['required','time'],
+            'jam_tayang' =>  ['required'],
             'harga_tiket' => 'required'
         ]);
         $user = Auth::guard('api')->user();
@@ -32,7 +32,17 @@ class JadwalController extends Controller
             ], 422);
         }
         $movie = Movie::where('judul', $request->judul_movie)->first();
-        $studio = Studio::where('name', $request->name_studio)->first();
+        if (!$movie) {
+            return response()->json([
+                'message' => 'Movie not found'
+            ], 404);
+        }
+        $studio = Studio::where('name', $request->nama_studio)->first();
+        if (!$studio) {
+            return response()->json([
+                'message' => 'Studio not found'
+            ], 404);
+        }
         $jadwal = new JadwalTayang();
         $jadwal->id_movie = $movie->id;
         $jadwal->id_studio = $studio->id;

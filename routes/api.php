@@ -28,11 +28,11 @@ Route::middleware('jwtauth')->group(function () {
     Route::get('/auth/logout', [AuthController::class, 'logout']);
     Route::post('/movie/add', [MovieController::class, 'create']);
     Route::get('/movie/get', [MovieController::class, 'get']);
-    Route::post('/studio/add', [StudioController::class, 'create']);
-    Route::post('/studio/get', [StudioController::class, 'get']);
-    Route::post('/jadwal/add', [JadwalController::class, 'create']);
-    Route::post('/jadwal/get', [JadwalController::class, 'get']);
-    Route::post('/pemesanan/add', [PemesananController::class, 'create']);
-    Route::post('/pemesanan/get', [PemesananController::class, 'get']);
     Route::get('/movie/get/{id}', [MovieController::class,'getById']);
+    Route::post('/studio/add', [StudioController::class, 'create']);
+    Route::get('/studio/get', [StudioController::class, 'get']);
+    Route::post('/jadwal/add', [JadwalController::class, 'create']);
+    Route::get('/jadwal/get', [JadwalController::class, 'get']);
+    Route::post('/pemesanan/add', [PemesananController::class, 'create']);
+    Route::get('/pemesanan/get', [PemesananController::class, 'get']);
 });
