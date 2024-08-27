@@ -92,6 +92,11 @@ class MovieController extends Controller
         }
 
         $gambar = $request->file('gambar');
+        if (!Storage::exists('/thumbnail/'.$movie->gambar)) {
+            return response()->json([
+                'message' => 'Can\'t update thumbnail'
+            ], 422);
+        }
         if ($movie) {
             Storage::delete('/thumbnail/'.$movie->gambar);
             $fileName = $request->judul."_thumbnail.".$gambar->getClientOriginalExtension();

@@ -75,4 +75,25 @@ class AuthController extends Controller
             ], 200);
         }
     }
+    public function addAdmin($id){
+        $user = User::find($id);
+        $logged = Auth::guard('api')->user();
+
+        if (!$logged->is_admin) {
+            return response()->json([
+                'message' => 'Forbidden access'
+            ],403);
+        }
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'User not found'
+            ],200);
+        }
+
+        $user->update(['is_admin' => true]);
+        return response()->json([
+            'message' => 'Add admin success'
+        ], 200);
+    }
 }
