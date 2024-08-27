@@ -20,11 +20,11 @@ class JadwalController extends Controller
             'harga_tiket' => 'required'
         ]);
         $user = Auth::guard('api')->user();
-        if (!$user->is_admin) {
-            return response()->json([
-                'message' => 'Forbidden access',
-            ], 403);
-        }
+        // if (!$user->is_admin) {
+        //     return response()->json([
+        //         'message' => 'Forbidden access',
+        //     ], 403);
+        // }
         if ($validator->fails()) {
             return response()->json([
                 'message' => 'Invalid input',
