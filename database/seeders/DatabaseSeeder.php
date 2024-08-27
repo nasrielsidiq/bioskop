@@ -28,5 +28,19 @@ class DatabaseSeeder extends Seeder
             'no_hp' => '012345678901',
             'password' => bcrypt('123456')
         ]);
+        User::create([
+            'name' => 'muca',
+            'is_admin' => true,
+            'email' => 'muca@admin.com',
+            'no_hp' => '012345678901',
+            'password' => bcrypt('123456')
+        ]);
+        User::create([
+            'name' => 'muca',
+            'is_admin' => false,
+            'email' => 'muca@user.com',
+            'no_hp' => '012345678901',
+            'password' => bcrypt('123456')
+        ]);
     }
 }
