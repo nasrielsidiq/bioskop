@@ -35,14 +35,44 @@ class AuthController extends Controller
             'user' =>  $user
         ], 200);
     }
-    
-    public function logout(){
+    public function register(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => ['required', 'unique:users'],
+            'no_hp' => 'required',
+            'password' => ['required', 'min:6']
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Invalid input',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+        $user =  new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->is_admin = false;
+        $user->no_hp = $request->no_hp;
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        $token = Auth::guard('api')->attempt($user->only('email', 'password'));
+
+        return response()->json([
+            'message' => 'Register success',
+            'token' => $token,
+            'user' => $user
+        ], 200);
+    }
+    public function logout()
+    {
         $removeToken = JWTAuth::invalidate(JWTAuth::getToken());
 
         if ($removeToken) {
             return response()->json([
                 'message' => 'Logout success'
-            ],200);
+            ], 200);
         }
     }
 }

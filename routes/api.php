@@ -29,6 +29,8 @@ Route::middleware('jwtauth')->group(function () {
     Route::post('/movie/add', [MovieController::class, 'create']);
     Route::get('/movie/get', [MovieController::class, 'get']);
     Route::get('/movie/get/{id}', [MovieController::class,'getById']);
+    Route::post('/movie/update/{id}', [MovieController::class, 'update']);
+    Route::delete('/movie/delete/{id}', [MovieController::class, 'delete']);
     Route::post('/studio/add', [StudioController::class, 'create']);
     Route::get('/studio/get', [StudioController::class, 'get']);
     Route::post('/jadwal/add', [JadwalController::class, 'create']);
